@@ -17,7 +17,6 @@ router.post('/convert', validate(scheme, "body"), async (req: Request, res: Resp
     let {base_currency, value, quote_currency} = req.body;
     let result = await apiWrapper.convert(base_currency, quote_currency);
 
-    console.log(result.error);
     if (result.error != null)
         res.status(result.error.code).json({
             result: "failure",
