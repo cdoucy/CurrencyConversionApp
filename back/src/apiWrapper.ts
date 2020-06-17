@@ -20,28 +20,23 @@ class ApiWrapper
 
     public async convert(from: string, to: string): Promise<wrapperResult>
     {
-        let uri = `/latest?base=${from}&symbols=${to}`;
-
-        try {
-            return this.success(await this.instance.get(uri));
-        } catch (err) {
-            return this.failure(err);
-        }
+        return await this.fetch(`/latest?base=${from}&symbols=${to}`);
     };
 
     public async getLatest(): Promise<wrapperResult>
     {
-        try {
-            return this.success(await this.instance.get("/latest"));
-        } catch (err) {
-            return this.failure(err);
-        }
+        return await this.fetch("/latest");
     };
 
     public async getLatestByBase(base: string): Promise<wrapperResult>
     {
+        return await this.fetch(`/latest?base=${base}`);
+    };
+
+    private async fetch(uri: string): Promise<wrapperResult>
+    {
         try {
-            return this.success(await this.instance.get(`/latest?base=${base}`));
+            return this.success(await this.instance.get(uri));
         } catch (err) {
             return this.failure(err);
         }
