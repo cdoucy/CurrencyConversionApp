@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+}
+
+.container {
+    background-color: #282c34;
+    color: white;
+    min-height: 100vh;
+    align-items: center;
+}
+
+.mainGrid {
+    background-color: #282c34;
+    color: white;
+    height: 80vh;
+    padding: 10%;
+}
