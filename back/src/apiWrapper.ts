@@ -56,7 +56,7 @@ class ApiWrapper
             data: null,
             error: {
                 code: error.response.status,
-                error: error.response.statusText
+                response: error.response.statusText
             }
         };
     };
