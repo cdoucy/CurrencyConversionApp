@@ -3,7 +3,6 @@ import {
     Grid,
     Typography,
     Link,
-    Box
 } from "@material-ui/core"
 import './App.css';
 import Input from "./components/Input";
@@ -57,11 +56,11 @@ class App extends React.Component
         let {value, base, quote} = inputState;
         if (value === "")
             return;
+        this.setState({base, quote});
         if (quote === base) {
             this.setState({result: `I think you can convert ${base} into ${base} by yourself.`});
             return;
         }
-        this.setState({base, quote});
         this.convert({
             base_currency: base,
             value: value,
@@ -71,6 +70,8 @@ class App extends React.Component
 
     render()
     {
+        let {result, quote, base} = this.state;
+
         return (
             <div className="App">
                 <div className="container">
@@ -83,15 +84,15 @@ class App extends React.Component
                         </Grid>
                         <Grid item xs={12}>
                         <Typography variant="h3">
-                            {this.state.result} {this.state.quote}
+                            {result} {quote !== base && quote}
                         </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <HistoryGraph base={this.state.base} quote={this.state.quote}/>
+                            <HistoryGraph base={base} quote={quote}/>
                         </Grid>
                         <Grid item xs={12}>
                             <Typography variant="subtitle1">
-                                    Powered by
+                                Powered by
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
@@ -104,7 +105,7 @@ class App extends React.Component
                         <Grid item xs={12}>
                             <Typography>
                                 <Link href="https://www.blockchain.com/api/exchange_rates_api">
-                                    blochain.com api
+                                    blockchain.com api
                                 </Link>
                             </Typography>
                         </Grid>

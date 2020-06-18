@@ -11,7 +11,7 @@ import {
     Typography
 } from "@material-ui/core";
 
-const description = " historical rates since 1 year";
+const description = " historical rates since 1 year based on ";
 
 class HistoryGraph extends React.Component
 {
@@ -20,7 +20,7 @@ class HistoryGraph extends React.Component
         super(props);
         this.state = {
             data: [],
-            title: `EUR${description}`
+            title: `EUR${description}USD`
         };
         this.update = this.update.bind(this);
     };
@@ -72,10 +72,10 @@ class HistoryGraph extends React.Component
     {
         event.preventDefault();
         let {quote, base} = this.props;
-        if (quote !== "BTC" && base != "BTC") {
+        if (quote !== "BTC" && base !== "BTC") {
             this.fetchHistory();
             this.setState({
-                title: `${base}${description}`
+                title: `${quote}${description}${base}`
             });
         } else
             this.setState({
