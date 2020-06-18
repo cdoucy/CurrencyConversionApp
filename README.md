@@ -31,3 +31,9 @@ front-end features:
 - Currency conversion
 
 - history exchanges rates plotting on 1 year
+
+Supported currencies :
+
+BTC, CAD, HKD, ISK, PHP, DKK, HUF, CZK, AUD, RON, SEK, IDR, INR, BRL,
+RUB, HRK, JPY, THB, CHF, SGD, PLN, BGN, TRY, CNY, NOK, NZD, ZAR, USD,
+MXN, ILS, GBP, KRW, MYR, EUR
