@@ -52,24 +52,30 @@ class Input extends React.Component
     constructor(props)
     {
         super(props);
+        this.state = {
+            base: "USD",
+            quote: "EUR",
+            value: "1"
+        };
         this.handleChange = this.handleChange.bind(this);
     };
 
-    state = {
-        base: "USD",
-        quote: "EUR",
-        value: 1
+    componentDidMount()
+    {
+        this.props.onChange(this.state);
     };
+
 
     handleChange(event) {
         event.preventDefault();
         let {name, value} = event.target;
 
-        if (name === "value") {
-            if (value >= 0)
-                this.setState({value});
-        } else
-            this.setState({[name]: value});
+        if (name === "value" && value < 0)
+            return;
+        this.setState({[name]: value}, () => {
+            if (this.props.onChange)
+                this.props.onChange(this.state);
+        });
     };
 
     createMenu(value, label) {
@@ -95,7 +101,7 @@ class Input extends React.Component
                     }
                 }}
             >
-                {currencies.map((it) => (
+                {currencies.sort().map((it) => (
                     <MenuItem className={classes.items} key={it} value={it}>
                         {it}
                     </MenuItem>
@@ -107,12 +113,11 @@ class Input extends React.Component
     render()
     {
         const {classes} = this.props;
-        console.log(this.state);
         const {quote, base, value} = this.state;
 
         return (
             <div className="App">
-                <Grid container direction="row" alignItems="center">
+                <Grid container direction="row" alignItems="center" justify="center" alignContent="center">
                     <Grid item>
                         <Typography variant="h6">
                             Convert
