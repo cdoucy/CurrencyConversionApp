@@ -6,7 +6,8 @@ import {
     TextField,
     withStyles,
     MenuItem,
-    Box
+    Box,
+    Button
 } from "@material-ui/core";
 
 import inputStyles from "../Style/Style";
@@ -18,11 +19,12 @@ class Input extends React.Component
     {
         super(props);
         this.state = {
-            base: "USD",
-            quote: "EUR",
+            base: "BTC",
+            quote: "USD",
             value: "1"
         };
         this.handleChange = this.handleChange.bind(this);
+        this.swap = this.swap.bind(this);
     };
 
     componentDidMount()
@@ -75,6 +77,20 @@ class Input extends React.Component
         )
     };
 
+    swap(event)
+    {
+        event.preventDefault();
+        let {quote, base} = this.state;
+
+        this.setState({
+            base: quote,
+            quote: base
+        }, () => {
+            if (this.props.onChange)
+                this.props.onChange(this.state);
+        });
+    };
+
     render()
     {
         const {classes} = this.props;
@@ -117,6 +133,13 @@ class Input extends React.Component
                     </Grid>
                     <Grid item>
                         {this.createMenu(quote, "quote")}
+                    </Grid>
+                    <Grid item>
+                        <Box pl={3}>
+                            <Button variant="contained" color="primary" onClick={this.swap}>
+                                Swap
+                            </Button>
+                        </Box>
                     </Grid>
                 </Grid>
             </div>
