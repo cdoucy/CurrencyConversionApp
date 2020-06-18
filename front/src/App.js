@@ -6,6 +6,7 @@ import {
 } from "@material-ui/core"
 import './App.css';
 import Input from "./components/Input";
+import {XYPlot, XAxis, YAxis, HorizontalGridLines, LineSeries} from 'react-vis';
 
 class App extends React.Component
 {

@@ -8,6 +8,11 @@ type wrapperResult = {
     error: any | null
 };
 
+type timeInterval = {
+    start: string,
+    end: string
+};
+
 class ApiWrapper
 {
     private readonly instance: AxiosInstance;
@@ -37,15 +42,40 @@ class ApiWrapper
         return response;
     };
 
-    public async getLatest(): Promise<wrapperResult>
+    public async getYearRates(base: string, quote: string): Promise<wrapperResult>
     {
-        return await this.fetch("/latest");
+        let {start, end} = this.getTimeInterval();
+        let uri = `/history?start_at=${start}&end_at=${end}&base=${base}&symbols=${quote}`;
+        let response = await this.fetch(uri);
+
+        if (response.error != null)
+            return response;
+
+        let sorted: any = {};
+        Object.keys(response.data.rates).sort(this.dateCmp).forEach(it => {
+            sorted[it] = response.data.rates[it];
+        });
+        response.data = sorted;
+        console.log(response.data);
+        return response;
     };
 
-    public async getLatestByBase(base: string): Promise<wrapperResult>
+    private getTimeInterval(): timeInterval
     {
-        return await this.fetch(`/latest?base=${base}`);
+        let end = new Date().toISOString().split('T')[0];
+        let start = `${Number(end.split('-')[0]) - 1}${end.slice(4)}`;
+
+        return {start, end};
     };
+
+    private dateCmp(a: string, b: string): number
+    {
+        let sa = a.split("-").map(Number);
+        let sb = b.split("-").map(Number);
+
+        return sa[0] - sb[0] || sa[1] - sb[1] || sa[2] - sb[2];
+    };
+
 
     private async fetch(uri: string): Promise<wrapperResult>
     {
