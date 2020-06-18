@@ -1,15 +1,17 @@
 version:  "3"
 
 services:
-    back:
+    back_end:
         container_name: currency_back
         build: ./back
         ports:
-            - "8181:8080"
-    front:
+            - "5000:5000"
+
+    front_end:
         depends_on:
-            - back
+            - back_end
         container_name: currency_front
-        build: ./front/
+        build: ./front
         ports:
             - "3000:3000"
+        stdin_open: true

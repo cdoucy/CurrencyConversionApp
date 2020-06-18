@@ -4,7 +4,7 @@ import morgan from "morgan";
 
 import router from "./router";
 
-const port = 8080;
+const port = 5000;
 const host = "0.0.0.0";
 const logFormat = "[:date[web]] :remote-addr :method :url :status :response-time ms";
 
