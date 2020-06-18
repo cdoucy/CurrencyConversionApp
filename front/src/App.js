@@ -82,9 +82,21 @@ class App extends React.Component
                         </Typography>
                         </Grid>
                         <Grid item>
+                            <Typography variant="subtitle1">
+                                    Powered by
+                            </Typography>
+                        </Grid>
+                        <Grid item>
                             <Typography>
                                 <Link href="https://exchangeratesapi.io/">
-                                    Powered by exchanges rates api
+                                    exchanges rates api
+                                </Link>
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography>
+                                <Link href="https://www.blockchain.com/api/exchange_rates_api">
+                                    blochain.com api
                                 </Link>
                             </Typography>
                         </Grid>
