@@ -5,13 +5,13 @@
 .container {
     background-color: #282c34;
     color: white;
-    min-height: 100vh;
+    height: 100%;
     align-items: center;
 }
 
 .mainGrid {
     background-color: #282c34;
     color: white;
-    height: 80vh;
-    padding: 10%;
+    height: 100vh;
+    padding: 5%;
 }

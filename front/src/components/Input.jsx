@@ -19,8 +19,8 @@ class Input extends React.Component
     {
         super(props);
         this.state = {
-            base: "BTC",
-            quote: "USD",
+            base: "USD",
+            quote: "EUR",
             value: "1"
         };
         this.handleChange = this.handleChange.bind(this);

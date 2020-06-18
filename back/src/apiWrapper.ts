@@ -56,7 +56,6 @@ class ApiWrapper
             sorted[it] = response.data.rates[it];
         });
         response.data = sorted;
-        console.log(response.data);
         return response;
     };
 
