@@ -3,14 +3,15 @@ import {
     XYPlot,
     XAxis,
     YAxis,
-    VerticalGridLines,
-    HorizontalGridLines,
     LineSeries
 } from 'react-vis';
 import {
     Button,
-    Grid
+    Grid,
+    Typography
 } from "@material-ui/core";
+
+const description = " historical rates since 1 year";
 
 class HistoryGraph extends React.Component
 {
@@ -18,8 +19,8 @@ class HistoryGraph extends React.Component
     {
         super(props);
         this.state = {
-            values: {},
-            data: []
+            data: [],
+            title: `EUR${description}`
         };
         this.update = this.update.bind(this);
     };
@@ -47,31 +48,51 @@ class HistoryGraph extends React.Component
         .then(res => res.json())
         .then(json => {
             if (json.result === "success")
-                this.setState({values: json.value})
+                this.processData(json.value);
             else
                 console.error(json);
         })
         .catch(err => console.error(err));
     };
 
+    processData(rawData)
+    {
+        let {quote} = this.props;
+        let data = Object.keys(rawData).map(it => {
+            return {
+                x: it,
+                y: rawData[it][quote]
+            };
+        });
+
+        this.setState({data});
+    };
+
     update(event)
     {
         event.preventDefault();
-        let {quote} = this.props;
-        let data = Object.keys(this.state.values).map(it => {
-            return {
-                x: it,
-                y: this.state.values[it][quote]
-            };
-        });
-        this.setState({data});
+        let {quote, base} = this.props;
+        if (quote !== "BTC" && base != "BTC") {
+            this.fetchHistory();
+            this.setState({
+                title: `${base}${description}`
+            });
+        } else
+            this.setState({
+                title: "BTC is not supported by graph"
+            });
     };
 
     render()
     {
         return (
-            <div>
-                <Grid container direction="column" alignItems="center" justify="center">
+            <div className="App">
+                <Grid container direction="column" alignItems="center" justify="center" style={{display: "flex"}}>
+                    <Grid item>
+                        <Typography variant="subtitle1">
+                            {this.state.title}
+                        </Typography>
+                    </Grid>
                     <Grid item>
                         <XYPlot color="white"
                             xType="ordinal"
@@ -88,7 +109,7 @@ class HistoryGraph extends React.Component
                     </Grid>
                     <Grid item>
                         <Button variant="contained" color="primary" onClick={this.update}>
-                            Update
+                            Update graph
                         </Button>
                     </Grid>
                 </Grid>

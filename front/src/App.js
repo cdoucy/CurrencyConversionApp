@@ -83,7 +83,7 @@ class App extends React.Component
                         </Grid>
                         <Grid item xs={12}>
                         <Typography variant="h3">
-                            {this.state.result}
+                            {this.state.result} {this.state.quote}
                         </Typography>
                         </Grid>
                         <Grid item xs={12}>
