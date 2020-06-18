@@ -1,6 +1,6 @@
 import {Router, Request, Response} from "express";
 import Joi from "joi";
-import validate from "./middleware";
+import {validate, checkDuplicate} from "./middleware";
 import ApiWrapper from "./apiWrapper";
 
 const scheme = {
@@ -13,9 +13,12 @@ const router = Router();
 
 const apiWrapper = new ApiWrapper();
 
-router.post('/convert', validate(scheme, "body"), async (req: Request, res: Response) => {
+router.use('/convert', validate(scheme, "body"));
+router.use('/convert', checkDuplicate);
+
+router.post('/convert', async (req: Request, res: Response) => {
     let {base_currency, value, quote_currency} = req.body;
-    let result = await apiWrapper.convert(base_currency, quote_currency);
+    let result = await apiWrapper.convert(base_currency, quote_currency, value);
 
     if (result.error != null)
         res.status(result.error.code).json({
@@ -25,7 +28,7 @@ router.post('/convert', validate(scheme, "body"), async (req: Request, res: Resp
     else {
         res.status(200).json({
             result: "success",
-            value: Number(result.data.rates[quote_currency]) * value
+            value: result.data
         });
     }
 });

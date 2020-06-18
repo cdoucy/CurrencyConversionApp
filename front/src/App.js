@@ -38,7 +38,9 @@ class App extends React.Component
         })
         .then(json => {
             if (json.result === "success")
-                this.setState({result: this.round(json.value)});
+                this.setState({
+                    result: data.quote_currency != "BTC" ? this.round(json.value) : json.value
+                });
             else {
                 console.error(json);
                 this.setState({result: "Request to exchangeratesapi.io failed."});
