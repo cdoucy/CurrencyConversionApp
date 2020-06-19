@@ -18,7 +18,7 @@ $ npm run start
 ```
 front-end:
 
-Go to front/package.json and set proxy to `http://0.0.0.0:5000`
+Open `front/package.json` and set proxy to `http://0.0.0.0:5000`
 ```
 $ cd front
 $ npm install
