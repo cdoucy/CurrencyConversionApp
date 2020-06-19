@@ -2,23 +2,27 @@
 
 Currency conversion and currency plotting created with Node and React.
 
-To run back-end:
+Run using Docker:
+```
+$ docker-compose up
+```
+
+Or run locally:
+
+back-end:
 ```
 $ cd back
 $ npm install
 $ npm run build
 $ npm run start
 ```
-To run front-end:
+front-end:
+
+Go to front/package.json and set proxy to `http://0.0.0.0:5000`
 ```
 $ cd front
 $ npm install
 $ npm run start
-```
-
-Or run using Docker:
-```
-$ docker-compose up
 ```
 
 back-end endpoints:
