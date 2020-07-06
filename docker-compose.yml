@@ -1,17 +1,32 @@
 version:  "3"
 
 services:
-    back_end:
-        container_name: currency_back
-        build: ./back
+    back:
+        container_name: finance_back_end
+        build: .
         ports:
             - "5000:5000"
+        networks:
+            - app-network
+        volumes:
+            - finance_public:/public/build/
 
-    front_end:
+    reverse_proxy:
         depends_on:
-            - back_end
-        container_name: currency_front
-        build: ./front
+            - back
+        container_name: finance_nginx
+        image: nginx:mainline-alpine
+        volumes:
+            - finance_public:/var/www/html
+            - ./nginx/:/etc/nginx/conf.d
         ports:
-            - "3000:3000"
-        stdin_open: true
+            - "80:80"
+        networks:
+            - app-network
+
+networks:
+    app-network:
+      driver: bridge
+
+volumes:
+    finance_public:
