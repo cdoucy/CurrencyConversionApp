@@ -4,8 +4,6 @@ services:
     back:
         container_name: finance_back_end
         build: .
-        ports:
-            - "5000:5000"
         networks:
             - app-network
         volumes:
