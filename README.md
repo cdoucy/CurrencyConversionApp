@@ -1,13 +1,15 @@
 # CurrencyConversionApp
 
 Currency conversion and currency plotting created with Node and React.
+The app is deployed on http://finance.doucycorp.fr/
 
-Run using Docker:
+Run in production mode using Docker and nginx reverse proxy:
 ```
 $ docker-compose up
 ```
+App is running on http://localhost/
 
-Or run locally:
+Or run in development mode:
 
 back-end:
 ```
@@ -17,13 +19,14 @@ $ npm run build
 $ npm run start
 ```
 front-end:
-
-Open `front/package.json` and set proxy to `http://0.0.0.0:5000`
 ```
 $ cd front
 $ npm install
 $ npm run start
 ```
+
+Backend is running on http://localhost:5000/
+Frontend is running on http://localhost:3000/
 
 back-end endpoints:
 
